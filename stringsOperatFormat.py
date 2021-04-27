@@ -35,10 +35,3 @@ print("Cisco Model: {0}, {1} WAN slots, IOS {2}".format("2600XM", 2, 12.4))
 print("Cisco Model: {2}, {0} WAN slots, IOS {1}".format("2600XM", 2, 12.4))
 
 print("Cisco Model: {0}, {0} WAN slots, IOS {0}".format("2600XM", 2, 12.4))
-
-
-
-
-
-
-print("Cisco Model: {0}, {1} WAN slots, IOS {2}".format("2600XM", 2, 12.4))
