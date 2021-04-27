@@ -1,0 +1,457 @@
+    1  cat /etc/os-release
+    2  sudo apt update && sudo apt upgrade -y
+    3  sudo apt install kali-desktop-xfce -y
+    4  sudo apt install xrdp -y
+    5  sudo service xrdp start
+    6  ip add
+    7  whoami
+    8  passwd root
+    9  sudo passwd root
+   10  sudo passwd yuriprata
+   11  add
+   12  sudo apt install dbus-x11
+   13  ifconfig
+   14  ls -al
+   15  cd Desktop
+   16  ls -al
+   17  cd ..
+   18  ls
+   19  ls -al
+   20  cd Downloads
+   21  ls -al
+   22  ls
+   23  cd ..
+   24  ls -al
+   25  clear
+   26  shutdown
+   27  cls
+   28  clear
+   29  ls -al
+   30  add
+   31  ipconfig
+   32  ifconfig
+   33  sudo service xrdp start
+   34  cls
+   35  clear
+   36  pwd
+   37  history
+   38  clear
+   39  uname -a
+   40  uname -r
+   41  uptime
+   42  hostname
+   43  hostname -I
+   44  last reboot
+   45  date
+   46  cal
+   47  w
+   48  whoami
+   49  history
+   50  cat /etc/os-release
+   51  sudo apt update && sudo apt upgrade -y
+   52  top
+   53  clear
+   54  updatedb
+   55  ifconfig
+   56  iwconfig
+   57  clear
+   58  ping 127.0.0.0
+   59  ping 8.8.8.8
+   60  sudo ping 8.8.8.8
+   61  clear
+   62  sudo arp -a
+   63  sudo netstat
+   64  sudo leafpad /etc/hostname
+   65  sudo hostname
+   66  hostnamectl
+   67  sudo hostnamectl
+   68  clear
+   69  cat /etc/hostname
+   70  sudo nano /etc/hostname
+   71  reboot
+   72  sudo reboot
+   73  sudo hostname
+   74  sudo reboot
+   75  ifconfig
+   76  clear
+   77  cat /etc/host
+   78  sudo cat /etc/host
+   79  hostname
+   80  sudo hostname
+   81  clear
+   82  ls -l
+   83  cd ..
+   84  ls
+   85  cd ..
+   86  ls
+   87  cat etc
+   88  cd ec
+   89  cd etc
+   90  ls -a
+   91  find hostname
+   92  cat hostname
+   93  cat hosts
+   94  nano hostname
+   95  clear
+   96  cd
+   97  ls -l
+   98  cd Desktop
+   99  clear
+  100  hostname -I
+  101  sudo service xrdp start
+  102  add
+  103  ifconfig
+  104  clear
+  105  python
+  106  clear
+  107  kex
+  108  sudo apt update && sudo apt upgrade -y
+  109  kex
+  110  sudo apt upgrade && sudo apt install kali-win-kex -y
+  111  kex
+  112  clear
+  113  uname
+  114  top
+  115  clear
+  116  python3 --version
+  117  python3
+  118  clear
+  119  idle
+  120  apt help
+  121  find python
+  122  cls
+  123  clear
+  124  pwd
+  125  cd ..
+  126  ls
+  127  ls -l
+  128  ls -al
+  129  cd ..
+  130  ls -al
+  131  cd usr/bin
+  132  ls -al
+  133  cd python3.9
+  134  cd Python3.9
+  135  python 3
+  136  python3
+  137  cd /usr/bin/python
+  138  cd usr/bin
+  139  ls -al
+  140  cd ..
+  141  ls -al
+  142  cd bin
+  143  ls -al
+  144  cd python
+  145  cd python3.9
+  146  cat python3.9
+  147  clear
+  148  vim hello.py
+  149  nano hello.py
+  150  sudo nano hello.py
+  151  python hello.py
+  152  hello.py
+  153  sudo hello.py
+  154  python 3 hello.py
+  155  python 3
+  156  hello.py
+  157  sudo hello.py
+  158  sudo python hello.py
+  159  clear
+  160  find hello.py
+  161  ls -al
+  162  sudo python3
+  163  cls
+  164  clear
+  165  python 3 hello.py
+  166  hello.py
+  167  clear
+  168  ls -al
+  169  cd Documents
+  170  ls -al
+  171  sudo ping bbc.co.uk
+  172  clear
+  173  ping muirlandoracle.co.uk
+  174  sudo ping muirlandoracle.co.uk
+  175  clear
+  176  man ping
+  177  man python
+  178  clear
+  179  find .py
+  180  grep .py
+  181  clear
+  182  ls -al
+  183  find hello.py
+  184  find .py
+  185  kex
+  186  clear
+  187  man traceroute
+  188  traceroute help
+  189  clear
+  190  echo hello
+  191  man echo
+  192  echo Shiba
+  193  echo -n Shiba
+  194  echo -n hello
+  195  man ls
+  196  cat hello.py
+  197  cat .py
+  198  clear
+  199  pwd
+  200  ls -a
+  201  cd Desktop
+  202  ls -a
+  203  ls -al
+  204  touch hello.py
+  205  ls -al
+  206  ls
+  207  sudo nano hello.py
+  208  sudo python hello.py
+  209  python hello.py
+  210  cat hello.py
+  211  python 3 hello.py
+  212  python3 hello.py
+  213  clear
+  214  sudo nano hello.py
+  215  python3 hello.py
+  216  sudo nano hello.py
+  217  python3 hello.py
+  218  cd ..
+  219  ls-al
+  220  ls
+  221  python3 hello.py
+  222  find hello.py
+  223  *hello.py
+  224  clear
+  225  pwd
+  226  ls -a
+  227  cd Desktop
+  228  ls -al
+  229  ./hello.py
+  230  sudo ./heloo.py
+  231  sudo python3 hello.py
+  232  touch dataTypes.py
+  233  sudo nano dataTypes.py
+  234  pytohn3 dataTypes.py
+  235  sudo python3 dataTypes.py
+  236  sudo nano dataTypes.py
+  237  sudo python3 dataTypes.py
+  238  sudo nano dataTypes.py
+  239  sudo python3 dataTypes.py
+  240  sudo nano dataTypes.py
+  241  sudo python3 dataTypes.py
+  242  sudo nano dataTypes.py
+  243  sudo python3 dataTypes.py
+  244  sudo nano dataTypes.py
+  245  sudo python3 dataTypes.py
+  246  sudo nano dataTypes.py
+  247  sudo python3 dataTypes.py
+  248  sudo nano dataTypes.py
+  249  sudo python3 dataTypes.py
+  250  sudo nano dataTypes.py
+  251  sudo python3 dataTypes.py
+  252  sudo nano dataTypes.py
+  253  clear
+  254  ls -al
+  255  clear
+  256  history
+  257  2
+  258  history 2
+  259  clear
+  260  history
+  261  sudo apt update && sudo apt upgrade -y
+  262  clear
+  263  pwd
+  264  ls
+  265  cd Desktop
+  266  ls -al
+  267  cd python
+  268  ls
+  269  git init
+  270  sudo apt-get update
+  271  sudo apt-get install git
+  272  git --version
+  273  git init
+  274  ls -a
+  275  git status
+  276  sudo touch index.html
+  277  ls
+  278  git add index.html
+  279  git status
+  280  git commit -m "Create index.html"
+  281  git config --global user.email "yuri.prata12@gmail.com"
+  282  git config --global user.name "yurippo"
+  283  Omit --global
+  284  omit --global
+  285  --global
+  286  git add index.html
+  287  git status
+  288  git add index.html "New index.html"
+  289  ls
+  290  git log
+  291  git add index.html
+  292  git status
+  293  git commit -m "New index.html"
+  294  git status
+  295  git log
+  296  touch app.js
+  297  touch styles.css
+  298  sudo nano
+  299  history
+  300  kex
+  301  pwd
+  302  cd Downloads
+  303  ls -al
+  304  sudo dpkg -i atom-amd64.deb
+  305  atom
+  306  sudo apt-get -f install
+  307  pwd
+  308  cd ..
+  309  ls -al
+  310  cdclear
+  311  clear
+  312  ls
+  313  cd Desktop
+  314  ls -al
+  315  cd python
+  316  cd Desktop/python
+  317  ls
+  318  atom
+  319  ls
+  320  cd github
+  321  ls
+  322  atom
+  323  exit
+  324  cd Desktop/python
+  325  ls
+  326  cd github
+  327  ls
+  328  sudo python3 stringMethods.py
+  329  sudo apt update
+  330  sudo apt -y install wget gpg
+  331  sudo sh -c 'echo "deb [arch=amd64]
+  332  https://packagecloud.io/AtomEditor/atom/any/ any main" >
+  333  /etc/apt/sources.list.d/atom.list'
+  334  sudo sh -c 'echo "deb [arch=amd64]
+  335  https://packagecloud.io/AtomEditor/atom/any/ any main" >/etc/apt/sources.list.d/atom.list'
+  336  cat /etc/apt/sources.list.d/atom.list
+  337  wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
+  338  sudo apt update
+  339  sudo apt install atom
+  340  history
+  341  kex
+  342  ls
+  343  cd Desktop/python
+  344  ls
+  345  cd github
+  346  ls
+  347  atom
+  348  clear
+  349  pwd
+  350  atom
+  351  cd ..
+  352  atom
+  353  clear
+  354  ls
+  355  cd github
+  356  git init
+  357  git status
+  358  sudo atom hello.py
+  359  sudo nano hello.py
+  360  clear
+  361  idle
+  362  kex
+  363  history
+  364  clear
+  365  pwd
+  366  ls
+  367  cd Desktop
+  368  ls
+  369  cd python
+  370  ls
+  371  cd github
+  372  ls
+  373  git init
+  374  git status
+  375  sudo apt install atom-ide-terminal
+  376  atom-ide-terminal
+  377  atom
+  378  clear
+  379  history
+  380  sudo service xrdp start
+  381  ifconfig
+  382  top
+  383  man kill
+  384  kill -9
+  385  kill -1
+  386  top
+  387  killall5 -9
+  388  top
+  389  clear
+  390  sudo apt autoremove
+  391  sudo apt-get autoremove
+  392  dpkg --list
+  393  sudo apt-get clean && apt-get autoremove
+  394  su
+  395  sudo apt-get update
+  396  sudo apt-get update && sudo apt-get dist-upgrade && sudo apt-get autoremove && sudo apt-get autoclean
+  397  clear
+  398  man whois
+  399  clear
+  400  whois facebook.com
+  401  clear
+  402  whois microsoft.com
+  403  clear
+  404  ls
+  405  cd Desktop
+  406  ls
+  407  cd python
+  408  ls
+  409  cd github
+  410  ls
+  411  clear
+  412  history
+  413  sudo apt-get update && sudo apt-get dist-upgrade && sudo apt-get autoremove && sudo apt-get autoclean
+  414  CLEAR
+  415  clear
+  416  echo "# My Code" README.md
+  417  git init
+  418  git add README.md
+  419  git remote add origin https://github.com/yurippo/My-Code
+  420  git push -u origin master
+  421  git remote -v
+  422  git push -u origin master
+  423  clear
+  424  git init
+  425  git status
+  426  clear
+  427  exit
+  428  exit
+  429  ls
+  430  cs Desktop
+  431  cd Desktop
+  432  clear
+  433  ls
+  434  cd python
+  435  ls
+  436  git init
+  437  git status
+  438  cd github
+  439  git status
+  440  git config --global core.editor "atom --wait""
+  441  atom
+  442  clear
+  443  git config --global core.editor "nano -w"
+  444  ls
+  445  sudo nano index.html 
+  446  history
+  447  sudo service xrdp start
+  448  ifconfig
+  449  clear
+  450  ls
+  451  ls -al
+  452  ls
+  453  cd Desktop
+  454  ls
+  455  history > history_for_print.txt
+  456  ls -al
+  457  history > history_for_print.txt
