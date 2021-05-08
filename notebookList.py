@@ -33,6 +33,17 @@
     list1.count(10) #returns the number of times element 10 is in the list
      
     list2 = [9, 99, 999, 1, 25, 500]
+    
+######Lists From the exercise
+    
+my_list = [10, "x", 20.02, "y", 30j, "z", 10j, False]
+
+my_list[3:6]
+
+my_list[-4:-2]
+
+type(my_list[-1])
+
      
     list2.sort() #sorts the list elements in ascending order; modifies the list in place
      
