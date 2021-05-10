@@ -1,5 +1,6 @@
-###When you go to restaurants in london you might see a bunch of people in restaurants wearing suits like banker types and @ time time they need to pay their bill you see everybody pull out their business cards and put it into a bowl. So What's going on it's apparently a game Where the rich banker type play like russian roulette with the bill so everybody puts their business cards in and the person whose the card is picked up has to pay the bill for every body's bill that's crazy b
-###This Challaenge will replicate this with Code @ the end will be able to type a list of people separted by commas and the app will pic one random name and give it to us let's get started ;)
+#####When you go to restaurants in London you might see a bunch of people in restaurants wearing suits like banker types and @ time time they need to pay their bill you see everybody pull out their business cards and put it into a bowl. So What's going on it's apparently a game Where the rich banker type play like Russian roulette with the bill so everybody puts their business cards in and the person whose the card is picked up has to pay the bill for every body's bill that's crazy but it's What it is ;)
+###This App replicates this random Bill Game with Code @ we are able to type a list of people separated by commas and the Banker Roulette App will pic one random name and say the Chosen Person is going to pay the meal today! ;)
+
 
 #Split string method
 nameString = input("Give me everybody's names, separated by comma: ")
