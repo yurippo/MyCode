@@ -62,4 +62,7 @@ For ($i = 1; $i -le 3; $i++)
 
 ##Remove-AzResourceGroup -Name MyResourceGroupName
 
+##When you are asked to confirm the delete, answer Yes, 
+## or you can add the -Force parameter to skip the prompt. The command may take several minutes to complete.
+
 
