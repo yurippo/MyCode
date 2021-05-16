@@ -1,0 +1,58 @@
+##This Powershell Script Automates the creation of 3 Linux
+##VMS with the image UbuntuLTS
+
+##1. Switch to your home folder in Cloud Shell.
+#### cd $HOME\clouddrive
+##2. Create a new text file named ConferenceDailyReset.ps1.
+### touch "./ConferenceDailyReset.ps1"
+##3.Open the integrated editor and select the ConferenceDailyReset.ps1 file.
+##code "./ConferenceDailyReset.ps1"
+
+##Tip - The integrated Cloud Shell also supports vim, nano, and emacs if you'd prefer to use one of those editors.
+
+##4.Start by capturing the input parameter in a variable. Add the following line to your script:
+
+param([string]$resourceGroup)
+
+##Normally, you'd have to authenticate with Azure using your credentials using Connect-AzAccount
+#and this could be done in the script.
+## However, in Cloud Shell environment you will already be authenticated so this is unnecessary.
+
+##Prompt for a username and password for the VM's admin account and capture the result in a variable:
+
+$adminCredential = Get-Credential -Message "Enter a username and password for the VM administrator."
+
+##6.Create a loop that executes three times:
+##7.In the loop body, create a name for each VM and store it in a variable and output it to the console:
+##8.Next, create a VM using the $vmName variable:
+
+
+For ($i = 1; $i -le 3; $i++) 
+{
+
+    $vmName = "ConferenceDemo" + $i
+    Write-Host "Creating VM: " $vmName    
+    New-AzVm -ResourceGroupName $resourceGroup -Name $vmName -Credential $adminCredential -Image UbuntuLTS
+
+}
+
+##9.Save the file. You can use the "..." menu at the top right corner of the editor. There are also common accelerator keys for Save.
+### Execute the script
+##Close the editor through the "..."context menu.
+##1.Execute the script.
+
+##./ConferenceDailyReset.ps1 learn-2119d8f0-dcb3-4397-84be-9b8575ed9261
+
+## The script will take several minutes to complete.
+# When it is finished, verify that it ran successfully by
+# looking at the resources you now have in your resource group:
+
+##Get-AzResource -ResourceType Microsoft.Compute/virtualMachines
+
+##You should see three VMs, each with a unique name.
+##You wrote a script that automated the creation of three VMs
+#in the resource group indicated by a script parameter. 
+#The script is short and simple but automates a process 
+#that would take a long time to complete manually with the portal.
+
+
