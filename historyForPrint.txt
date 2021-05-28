@@ -1,0 +1,327 @@
+    1  adduser
+    2  su
+    3  sudo adduser
+    4  password
+    5  pssd
+    6  su
+    7  S@leil1
+    8  clear
+    9  whoami
+   10  tree
+   11  apt get tree
+   12  -apt get tree
+   13  sudo apt install tree
+   14  tree
+   15  adduser
+   16  sudo adduser
+   17  sudo
+   18  su
+   19  sudo
+   20  sudo adduser
+   21  su
+   22  adduser
+   23  passwd
+   24  su
+   25  sudo adduser
+   26  sudo su
+   27  free
+   28  free -m
+   29  clear
+   30  top
+   31  sudo dmidecode -t 17
+   32  clear
+   33  pwd
+   34  mkdir pasta
+   35  ls -al
+   36  rmdir pasta
+   37  ls -al
+   38  ls
+   39  clear
+   40  pwd
+   41  ls -al
+   42  cd Desktop
+   43  ls
+   44  mkdir Pasta
+   45  whoami
+   46  sudo apt-get update
+   47  sudo apt-get upgrade
+   48  clear
+   49  netstat
+   50  clear
+   51  ifconfig
+   52  shutdown -h
+   53  adminuser
+   54  sudo apt-get install lshw
+   55  lshw -class disk -class storage
+   56  sudo lshw -class disk -class storage
+   57  pwd
+   58  touch secret
+   59  touch secret.bak
+   60  nano secret
+   61  nano secret.bak
+   62  clear
+   63  ls -al
+   64  clear
+   65  diff secret secret.bak
+   66  nano secret.bak
+   67  nano secret
+   68  diff secret secret.bak
+   69  sdiff secret secret.back
+   70  diff secret secret.bak
+   71  clear
+   72  sdiff secret secret.bak
+   73  echo new last line >> secret
+   74  sdiff secret secret.bak
+   75  vimdiff secret secret.bak
+   76  sudo apt install vim
+   77  vimdiff secret secret.bak
+   78  ls
+   79  cd Desktop
+   80  ls
+   81  ls -al
+   82  cd /media/yuri
+   83  ls
+   84  cd 3C122C68122C297A
+   85  ls
+   86  clear
+   87  pwd
+   88  ls -al
+   89  clear
+   90  links2
+   91  sudo apt install link2
+   92  links2
+   93  sudo apt install lynx
+   94  lynx www.google.com
+   95  lynx www.linuxandubuntu.com
+   96  CLEAR
+   97  clear
+   98  ifconfig
+   99  pyton 3
+  100  python 3
+  101  clear
+  102  echo "Hello World"
+  103  pwd
+  104  ls
+  105  idle
+  106  sudo apt install idle
+  107  idle
+  108  exit
+  109  pwd
+  110  cd /
+  111  ls
+  112  cd /home/yuri
+  113  ls -l
+  114  mkdir Backup
+  115  ls
+  116  cd /
+  117  ls
+  118  cd swapfile
+  119  ls -al
+  120  cd media
+  121  ls
+  122  ls -al
+  123  cd yuri
+  124  ls
+  125  ls -al
+  126  cd 3C122C68122C297A
+  127  ls -al
+  128  cp * /home/yuri/Backup
+  129  cd /home/yuri/Backup
+  130  ls -al
+  131  bluez
+  132  apt install blueZ
+  133  sudo apt install blueZ
+  134  bluetoothctl
+  135  sudo apt-get install bluez-tools
+  136  bt-device -1
+  137  sudo /etc/init.d/bluetooth start
+  138  cd /etc
+  139  ls -al
+  140  cat hostname
+  141  apt-get install openssh-server
+  142  sudo su
+  143  whoami
+  144  userdel guest
+  145  su
+  146  sudo
+  147  su
+  148  sudo
+  149  su do
+  150  su
+  151  apt install updates
+  152  su
+  153  userdel guest
+  154  root
+  155  sudo su
+  156  history
+  157  ls -l
+  158  ls Public
+  159  ls -al
+  160  clear
+  161  nano /etc/samba/smb.conf
+  162  sudo su
+  163  sudo
+  164  sudo su
+  165  ps aux
+  166  crontab -l
+  167  nano crontab
+  168  clear
+  169  pstree
+  170  exit
+  171  pwd
+  172  ls
+  173  ls BackupFiec
+  174  clear
+  175  ls
+  176  cd BackupFiec
+  177  ls
+  178  clear
+  179  ps aux
+  180  crontab -l
+  181  idle
+  182  clear
+  183  sudo
+  184  su
+  185  ifconfig
+  186  su
+  187  pwd
+  188  ls -l
+  189  whoami
+  190  ifconfig
+  191  su
+  192  crontab -l
+  193  su
+  194  whoami
+  195  pwd
+  196  exit
+  197  pwd
+  198  ls
+  199  clear
+  200  export TEST=1
+  201  echo $TEST
+  202  su guest
+  203  su - guest
+  204  su -c 'echo $GUEST_HOME' - guest
+  205  clear
+  206  sudo -l
+  207  sudo su - guest
+  208  sudo -s
+  209  sudo su -
+  210  clear
+  211  idle
+  212  print ("Hello Yuri")
+  213  print(hello)
+  214  x = 4
+  215  clear
+  216  pwd
+  217  ls
+  218  cd Desktop
+  219  ls
+  220  ls BackupFiec
+  221  cd /home
+  222  ls
+  223  cd yuri-ftp
+  224  ls
+  225  pwd
+  226  cd ..
+  227  ls
+  228  cd /home/yuri
+  229  ls
+  230  clear
+  231  history
+  232  echo $HISTSIZE
+  233  history
+  234  echo $HISTSIZE
+  235  echo alpha bravo charlie
+  236  echo $HIST
+  237  echo $HISTSIZE 
+  238  ls -ld ~
+  239  ls -ld ~adm
+  240  su
+  241  clear
+  242  pwd
+  243  ls
+  244  clear
+  245  history
+  246  clear
+  247  su
+  248  clear
+  249  su
+  250  pwd
+  251  ls
+  252  cd Desktop
+  253  ls
+  254  clear
+  255  cd ..
+  256  clear
+  257  df -h
+  258  sudo apt install smartmontools -y
+  259  sudo apt install -y gsmartcontrol smart-notifier
+  260  sudo smartctl -i /dev/sda1
+  261  sudo smartctl -t short -a /dev/sda1
+  262  su
+  263  sudo smartctl -i /dev/sda1
+  264  sudo smartctl -t short -a /dev/sda1
+  265  clear
+  266  sudo smartctl -A /dev/sda1
+  267  clear
+  268  df -h
+  269  clear
+  270  ps aux
+  271  top
+  272  clear
+  273  ps tree
+  274  pstree
+  275  cmatrix
+  276  clear
+  277  sudo badblocks -sv -c 1024 /dev/sda1
+  278  clear
+  279  shutdown -h
+  280  su
+  281  fdisk -l
+  282  su
+  283  ls
+  284  cat YURI FTP.txt
+  285  cat 'YURI FTP.txt'
+  286  nano 'YURI FTP.txt'
+  287  cat defautLorsEntrevue.docx
+  288  PuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTY6cPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTY6cPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYPuTTYq
+  289  clear
+  290  ls -l
+  291  clear
+  292  ls -l
+  293  su - 
+  294  pwd
+  295  ifconfig
+  296  free
+  297  history
+  298  su
+  299  ls
+  300  cd Desktop
+  301  ls -al
+  302  cd EnviroFinal
+  303  ls -al
+  304  cat Apr2018.pdf
+  305  ls
+  306  cat YURI FTP.txt
+  307  exit
+  308  history
+  309  apt install updates
+  310  root
+  311  su
+  312  history
+  313  su
+  314  exit
+  315  su
+  316  ls
+  317  cd Desktop
+  318  ls
+  319  whoami
+  320  history
+  321  pwd
+  322  history > historyForPrint.txt
+  323  ls -al
+  324  cd Home
+  325  cd Desktop
+  326  ls -al
+  327  history > historyForPrint.txt
