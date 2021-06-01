@@ -1,0 +1,54 @@
+Role definitions
+Each role is a set of properties defined in a JavaScript Object Notation (JSON) file. This role definition includes a Name, ID, and Description. It also includes the allowable permissions (Actions), denied permissions (NotActions), and scope (for example, read access) for the role.
+
+For the Owner role, that means all actions, indicated by an asterisk (*); no denied actions; and all scopes, indicated by a forward slash (/).
+
+You can get this information using the PowerShell Get-AzRoleDefinition Owner cmdlet.
+
+Get-AzRoleDefinition Owner
+
+This code should produce the following output:
+
+Name             : Owner
+Id               : 8e3af657-a8ff-443c-a75c-2fe8c4bcb635
+IsCustom         : False
+Description      : Lets you manage everything, including access to resources.
+Actions          : {*}
+NotActions       : {}
+DataActions      : {}
+NotDataActions   : {}
+AssignableScopes : {/}
+
+Try the same for the Contributor and Reader roles to see the actions allowed and denied.
+
+This structure is represented as JSON when used in role-based access control (RBAC) or from the underlying API.
+For example, here's the Contributor role definition in JSON format.
+
+{
+  "Name": "Contributor",
+  "Id": "b24988ac-6180-42a0-ab88-20f7382dd24c",
+  "IsCustom": false,
+  "Description": "Lets you manage everything except access to resources.",
+  "Actions": [
+    "*"
+  ],
+  "NotActions": [
+    "Microsoft.Authorization/*/Delete",
+    "Microsoft.Authorization/*/Write",
+    "Microsoft.Authorization/elevateAccess/Action"
+  ],
+  "DataActions": [],
+  "NotDataActions": [],
+  "AssignableScopes": [
+    "/"
+  ]
+}
+
+
+Creating a new role can be done through several mechanisms:
+
+Azure portal. You can use the Azure portal to create a custom role - Azure Active Directory > Roles and administrators > New custom role.
+
+Azure PowerShell. You can use the New-AzADMSRoleDefinition cmdlet to define a new role.
+
+Azure Graph API. You can use a REST call to the Graph API to programmatically create a new role.
