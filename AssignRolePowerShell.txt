@@ -1,0 +1,17 @@
+Assign the role by using Azure PowerShell
+The following command shows how to assign the Owner role to a user at the subscription scope by using Azure PowerShell:
+
+New-AzRoleAssignment `
+    -SignInName rbacuser@example.com `
+    -RoleDefinitionName "Owner" `
+    -Scope "/subscriptions/<subscriptionID>"
+
+Assign the role by using the Azure CLI
+The following command shows how to assign the Owner role to a user at the subscription scope by using the Azure CLI:
+
+az role assignment create \
+    --assignee rbacuser@example.com \
+    --role "Owner" \
+    --subscription <subscription_name_or_id>
+    
+ 
