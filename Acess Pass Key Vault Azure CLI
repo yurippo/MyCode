@@ -1,0 +1,8 @@
+az keyvault secret show \
+    --name MyPassword \
+    --vault-name my-keyvault-testnnn \
+    --query value \
+    --output tsv
+
+
+
