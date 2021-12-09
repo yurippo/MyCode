@@ -1,0 +1,4 @@
+//So, how do you find the particular commands you need? One way is to use az find. 
+//For example, if you want to find commands that might help you manage a storage blob, you can use the following find command:
+
+az find blob
