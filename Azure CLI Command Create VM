@@ -1,0 +1,17 @@
+The Azure CLI is a cross-platform command-line program to connect to Azure and execute administrative commands on Azure resources. 
+For example, to create a VM, you would use a command like the following:
+
+AZURE CLI
+
+az vm create \
+  --resource-group CrmTestingResourceGroup \
+  --name CrmUnitTests \
+  --image UbuntuLTS
+  ...
+  
+  
+  
+  The Azure CLI is available two ways: inside a browser via the Azure Cloud Shell or with a local install on Linux, Mac, or Windows.
+  In both cases, it can be used interactively or scripted. For interactive use, you first launch a shell such as cmd.exe on Windows or Bash on Linux
+  or macOS and then issue the command at the shell prompt.
+  To automate repetitive tasks, you assemble the commands into a shell script using the script syntax of your chosen shell and then execute the script.
