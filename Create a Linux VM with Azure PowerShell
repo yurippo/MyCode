@@ -1,0 +1,204 @@
+Because we are using the Azure sandbox, you won't have to create a resource group. Instead, use the resource group learn-b9f9be25-c047-4456-b411-f1917e795f98. 
+In addition, be aware of the location restrictions.
+
+Let's create a new Azure VM with PowerShell.
+
+Use the New-AzVm cmdlet to create a VM.
+
+Use the resource group learn-b9f9be25-c047-4456-b411-f1917e795f98.
+
+Give the VM a name. Typically, you want to use something meaningful that identifies the purposes of the VM, location, and (if there is more than one) instance number. 
+We'll use "testvm-eus-01" for "Test VM in East US, instance 1". Come up with your own name based on where you place the VM.
+
+Select a location close to you from the following list available in the Azure sandbox. Make sure to change the value in the below example command if you are using copy and paste.
+
+westus2
+southcentralus
+centralus
+eastus
+westeurope
+southeastasia
+japaneast
+brazilsouth
+australiasoutheast
+centralindia
+Use "UbuntuLTS" for the image - this is Ubuntu Linux.
+
+Use the Get-Credential cmdlet and feed the results into the Credential parameter.
+
+Important
+
+See the Linux VM FAQ for username and password limitations. Passwords must be 12 - 123 characters in length, and meet 3 out of the following 4 complexity requirements:
+
+Have lowercase characters
+Have uppercase characters
+Have a digit
+Have a special character (Regex match [\W_])
+
+
+Add the -OpenPorts parameter, and pass "22" as the port. This will let us SSH into the machine.
+
+
+PowerShell
+
+New-AzVm -ResourceGroupName learn-b9f9be25-c047-4456-b411-f1917e795f98 -Name "testvm-eus-01" -Credential (Get-Credential) -Location "East US" -Image UbuntuLTS -OpenPorts 22
+
+
+Create a username and password, then press Enter. PowerShell will start creating your VM.
+
+This will take a few minutes to complete. After completion, you can query it, and assign the VM object to a variable ($vm).
+
+
+PowerShell
+
+$vm = (Get-AzVM -Name "testvm-eus-01" -ResourceGroupName learn-b9f9be25-c047-4456-b411-f1917e795f98)
+
+
+
+Query the value to dump out the information about the VM.
+
+
+PowerShell
+
+$vm
+
+
+You should see something like the following.
+
+
+ResourceGroupName : learn-b9f9be25-c047-4456-b411-f1917e795f98
+Id                : /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/learn-b9f9be25-c047-4456-b411-f1917e795f98/providers/Microsoft.Compute/virtualMachines/testvm-eus-01
+VmId              : 00000000-0000-0000-0000-000000000000
+Name              : testvm-eus-01
+Type              : Microsoft.Compute/virtualMachines
+Location          : eastus
+Tags              : {}
+HardwareProfile   : {VmSize}
+NetworkProfile    : {NetworkInterfaces}
+OSProfile         : {ComputerName, AdminUsername, LinuxConfiguration, Secrets}
+ProvisioningState : Succeeded
+StorageProfile    : {ImageReference, OsDisk, DataDisks}
+
+
+You can reach into complex objects through a dot (".") notation. 
+For example, to see the properties in the VMSize object associated with the HardwareProfile section, run the following command.
+
+PowerShell
+
+Or, to get information on one of the disks, run the following command.
+
+PowerShell
+
+$vm.StorageProfile.OsDisk
+
+You can even pass the VM object into other cmdlets. For example, running the following command will retrieve the public IP address of your VM.
+
+PowerShell
+
+$vm | Get-AzPublicIpAddress
+
+With the IP address, you can connect to the VM with SSH. 
+For example, if you used the username "yurippo", and the IP address is "20.124.211.3", running this command would connect to the Linux machine.
+
+PowerShell
+
+ssh yurippo@20.124.211.3
+
+Log out by entering exit.
+
+Delete a VM
+
+To try out some more commands, let's delete the VM. We'll shut it down first.
+
+PowerShell
+
+Stop-AzVM -Name $vm.Name -ResourceGroup $vm.ResourceGroupName
+
+Now, let's delete the VM by running the Remove-AzVM cmdlet.
+
+PowerShell
+
+Remove-AzVM -Name $vm.Name -ResourceGroup $vm.ResourceGroupName
+
+
+Run this command to list all the resources in your resource group.
+
+PowerShell
+
+Get-AzResource -ResourceGroupName $vm.ResourceGroupName | Format-Table
+
+You should see a bunch of resources (disks, virtual networks, and so on) that all still exist.
+
+Output
+
+Microsoft.Compute/disks
+Microsoft.Network/networkInterfaces
+Microsoft.Network/networkSecurityGroups
+Microsoft.Network/publicIPAddresses
+Microsoft.Network/virtualNetworks
+
+This is because the Remove-AzVM command just deletes the VM. It doesn't clean up any of the other resources. 
+At this point, we'd likely just delete the resource group itself, and be done with it. However, let's run through the exercise to
+clean it up manually. You should see a pattern in the commands.
+
+Delete the network interface.
+
+PowerShell
+
+$vm | Remove-AzNetworkInterface –Force
+
+Delete the managed OS disks and storage account.
+
+PowerShell
+
+Get-AzDisk -ResourceGroupName $vm.ResourceGroupName -DiskName $vm.StorageProfile.OSDisk.Name | Remove-AzDisk -Force
+
+
+Next, delete the virtual network.
+
+PowerShell
+
+Get-AzVirtualNetwork -ResourceGroup $vm.ResourceGroupName | Remove-AzVirtualNetwork -Force
+
+
+Delete the network security group.
+
+PowerShell
+
+Get-AzNetworkSecurityGroup -ResourceGroup $vm.ResourceGroupName | Remove-AzNetworkSecurityGroup -Force
+
+And finally, delete the public IP address.
+
+PowerShell
+
+Get-AzPublicIpAddress -ResourceGroup $vm.ResourceGroupName | Remove-AzPublicIpAddress -Force
+
+We should have caught all the created resources. Check the resource group just to be sure.
+We performed many manual commands here, but a better approach would have been to write a script so we could reuse this logic later to create or delete a VM. 
+Let's look at scripting with PowerShell.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
