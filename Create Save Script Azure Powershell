@@ -111,7 +111,18 @@ You wrote a script that automated the creation of three VMs in the resource grou
 The script is short and simple but automates a process that would take a long time to complete manually with the Azure portal.
 
 
+Clean up
+The sandbox automatically cleans up your resources when you're finished with this module.
 
+When you're working in your own subscription, it's a good idea at the end of a project to identify whether you still need the resources you created. Resources left running can cost you money. You can delete resources individually or delete the resource group to delete the entire set of resources.
+
+When you are running in your own subscription, you can use the following PowerShell cmdlet to delete the resource group (and all related resources).
+
+PowerShell
+
+Remove-AzResourceGroup -Name MyResourceGroupName
+
+When you are asked to confirm the delete, answer Yes, or you can add the -Force parameter to skip the prompt. The command may take several minutes to complete.
 
 
 
