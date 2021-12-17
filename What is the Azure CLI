@@ -1,0 +1,61 @@
+The Azure CLI is a command-line program to connect to Azure and execute administrative commands on Azure resources. 
+It runs on Linux, macOS, and Windows and allows administrators and developers to execute their commands through a terminal or command-line prompt (or script!) 
+instead of a web browser. 
+For example, to restart a virtual machine (VM), you would use a command like the following:
+
+Azure CLI
+
+az vm restart -g MyResourceGroup -n MyVm
+
+Using the Azure CLI in scripts
+
+If you want to use the Azure CLI commands in scripts, you need to be aware of any issues around the "shell" or environment used for running the script.
+For example, in a bash shell,
+the following syntax is used when setting variables:
+
+Azure CLI
+
+variable="value"
+variable=integer
+
+If you use a PowerShell environment for running Azure CLI scripts, you'll need to use this syntax for variables:
+
+PowerShell
+
+$variable="value"
+$variable=integer
+
+
+The Azure CLI must be installed before it can be used to manage Azure resources from a local computer. 
+The installation steps vary for Windows, Linux, and macOS, but once installed, the commands are common across platforms.
+
+
+Let's install the Azure CLI on your local machine, and then run a command to verify your installation. The method you use for installing 
+the Azure CLI depends on the operating system of your computer. Choose the steps for your operating system.
+
+Windows
+Here you will install the Azure CLI on Windows using the MSI installer.
+
+Go to https://aka.ms/installazurecliwindows, and in the browser security dialog box, click Run.
+In the installer, accept the license terms, and then click Install.
+In the User Account Control dialog, select Yes.
+
+Running the Azure CLI
+You run the Azure CLI by opening a bash shell (Linux and macOS), or from the command prompt or PowerShell (Windows).
+
+Start the Azure CLI and verify your installation by running the version check.
+
+Azure CLI
+
+az --version
+
+Tip
+
+Running the Azure CLI from PowerShell has some advantages over running the Azure CLI from the Windows command prompt. PowerShell provides additional tab completion features over those available from the command prompt.
+
+You set up your local machines to administer Azure resources with the Azure CLI. You can now use the Azure CLI locally to enter commands or execute scripts. The Azure CLI will forward your commands to the Azure datacenters
+where they will run inside your Azure subscription.
+
+
+
+
