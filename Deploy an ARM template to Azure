@@ -1,0 +1,90 @@
+ou can deploy an ARM template to Azure in one of the following ways:
+
+Deploy a local template.
+Deploy a linked template.
+Deploy in a continuous deployment pipeline.
+This module focuses on deploying a local ARM template. In future Learn modules, you'll learn how to deploy more complicated infrastructure and how to integrate with Azure Pipelines.
+
+To deploy a local template, you need to have either Azure PowerShell or the Azure CLI installed locally.
+
+First, sign in to Azure by using the Azure CLI or Azure PowerShell.
+
+Azure CLI
+
+az login
+
+
+Next, define your resource group. You can use an already-defined resource group or create a new one with the following command. You can obtain available location values from: 
+az account list-locations (CLI) or Get-AzLocation (PowerShell). You can configure the default location using az configure --defaults location=<location>.
+
+
+Azure CLI
+
+az group create \
+  --name {name of your resource group} \
+  --location "{location}"
+  
+  
+To start a template deployment at the resource group, use either the Azure CLI command az deployment group create
+or the Azure PowerShell command New-AzResourceGroupDeployment.
+
+Tip
+
+The difference between az deployment group create and az group deployment create is that az group deployment create is an old command to be deprecated and will be
+replaced by az deployment group create. Therefore, it is recommended to use az deployment group create to deploy resources under the resource group scope.
+
+
+Both commands require the resource group, the region, and the name for the deployment so you can easily identify it in the deployment history.
+For convenience, the exercises create a variable that stores the path to the template file.
+This variable makes it easier for you to run deployment commands because you don't have to retype the path every time you deploy. Here's an example:
+
+Azure CLI
+
+To run this deployment command, you must have the latest version of Azure CLI.
+
+templateFile="{provide-the-path-to-the-template-file}"
+az deployment group create \
+  --name blanktemplate \
+  --resource-group myResourceGroup \
+  --template-file $templateFile
+  
+  
+Use linked templates to deploy complex solutions. You can break a template into many templates and deploy these templates through a main template.
+When you deploy the main template, it triggers the deployment of the linked template. You can store and secure the linked template by using a SAS token.
+
+A CI/CD pipeline automates the creation and deployment of development projects, which includes ARM template projects. The two most common pipelines used
+for template deployment are Azure Pipelines or GitHub Actions.
+
+More information on these two types of deployment is covered in other modules.
+
+
+For our storage example, your template might look like this:
+
+JSON
+
+{
+   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+   "contentVersion": "1.0.0.1",
+   "apiProfile": "",
+   "parameters": {},
+   "variables": {},
+   "functions": [],
+   "resources": [
+      {
+          "type": "Microsoft.Storage/storageAccounts",
+          "apiVersion": "2019-06-01",
+          "name": "learntemplatestorage123",
+          "location": "westus",
+          "sku": {
+              "name": "Standard_LRS"
+          },
+          "kind": "StorageV2",
+          "properties": {
+              "supportsHttpsTrafficOnly": true
+          }
+      }
+   ],
+   "outputs": {}
+}
+
+
