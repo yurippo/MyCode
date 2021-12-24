@@ -1,0 +1,149 @@
+get-azsubscription  //to list all the subscriptions
+
+set-azcontext 9dbfc075-c1ba-4e79-a9af-dbb9417a13cb // to set the subscription you'd like to work with
+
+set-azresourcegroup -name az104lab -tag @{ costcenter="1987"; ManagedBy="Bob" } //to set the beautiful tag to the resource group
+
+Result of the beautiful tag created:
+
+PS /home/yuri> set-azresourcegroup -name az104lab -tag @{ costcenter="1987"; ManagedBy="Bob" }
+
+ResourceGroupName : az104lab
+Location          : eastus2
+ProvisioningState : Succeeded
+Tags              :
+                    Name        Value
+                    ==========  =====
+                    ManagedBy   Bob
+                    costcenter  1987
+
+ResourceId        : /subscriptions/9dbfc075-c1ba-4e79-a9af-dbb9417a13cb/resourceGroups/az104lab
+
+
+(get-azresourcegroup -name az104lab).tags //to get the tags of a resource group
+
+$tags = (get-azresourcegroup -name az104lab).tags //to set the tags into a variable
+
+$tags.Add("Project","Marketing") //to add a new tag: tag name = Project, value = Marketing
+
+set-azresourcegroup -name az104lab -tag $tags //to add that tag stored in variable to the resource group
+
+Result
+
+PS /home/yuri> set-azresourcegroup -name az104lab -tag $tags
+
+ResourceGroupName : az104lab
+Location          : eastus2
+ProvisioningState : Succeeded
+Tags              :
+                    Name        Value
+                    ==========  =========
+                    costcenter  1987
+                    ManagedBy   Bob
+                    Project     Marketing
+
+ResourceId        : /subscriptions/9dbfc075-c1ba-4e79-a9af-dbb9417a13cb/resourceGroups/az104lab
+
+
+Now we're gonna assign a tag to a single resource
+
+let's create a variable and prepare it
+
+$r =  get-azresource -resourcename coffeenet -resourcegroupname az104lab
+
+Result of the command:
+PS /home/yuri> $r
+
+Name              : coffeenet
+ResourceGroupName : az104lab
+ResourceType      : Microsoft.Network/virtualNetworks
+Location          : eastus2
+ResourceId        : /subscriptions/9dbfc075-c1ba-4e79-a9af-dbb9417a13cb/resourceGroups/az104lab/providers/Microsoft.Network/virtualNetworks/coff
+                    eenet
+Tags              :
+
+Now time to set the tag
+
+set-azresource -resourceid $r.resourceid 
+
+set-azresource -resourceid $r.resourceid -tag @{ costcenter="1988"; ManagedBy="Yuri Ppo" }
+
+//this command is basic saying look what is stored into the variable and get the ID and that will return the string we need and the -tag part is to add the new
+tag name and value
+
+Result:
+
+PS /home/yuri> set-azresource -resourceid $r.resourceid -tag @{ costcenter="1988"; ManagedBy="Yuri Ppo" }
+
+Confirm
+Are you sure you want to update the following resource:
+/subscriptions/9dbfc075-c1ba-4e79-a9af-dbb9417a13cb/resourceGroups/az104lab/providers/Microsoft.Network/virtualNetworks/coffeenet
+[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"): Y
+
+VirtualNetworkName Location ProvisioningState AddressPrefixes
+------------------ -------- ----------------- ---------------
+coffeenet          eastus2  Succeeded         10.0.0.0/16
+
+PS /home/yuri>
+
+Now let's get the tags of the resource
+
+(get-azresource -resourcename coffeenet -resourcegroupname az104lab).tags //this command get the tags of the resource
+
+Result:
+PS /home/yuri> (get-azresource -resourcename coffeenet -resourcegroupname az104lab).tags
+
+Key        Value
+---        -----
+ManagedBy  Yuri Ppo
+costcenter 1988
+
+The variable $r is everything we wanna learn about our resource
+
+Now we're gonna add to that variable
+
+$r.tags.add("Owner","yuri@foodxtech.com") //this command adds more tag to the resource
+
+Result
+
+PS /home/yuri> $r
+
+Name              : coffeenet
+ResourceGroupName : az104lab
+ResourceType      : Microsoft.Network/virtualNetworks
+Location          : eastus2
+ResourceId        : /subscriptions/9dbfc075-c1ba-4e79-a9af-dbb9417a13cb/resourceGroups/az104lab/providers/Microsoft.Network/virtualNetworks/coff
+                    eenet
+Tags              :
+                    Name        Value
+                    ==========  ==================
+                    ManagedBy   Yuri Ppo
+                    costcenter  1988
+                    Owner       yuri@foodxtech.com
+
+
+$r.tags //this command can be used to see tags
+
+Result
+
+$r.tags
+
+Key        Value
+---        -----
+ManagedBy  Yuri Ppo
+costcenter 1988
+Owner      yuri@foodxtech.com
+
+PS /home/yuri>
+
+
+
+
+
+
+
+
+
+
+
+
