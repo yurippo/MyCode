@@ -1,0 +1,30 @@
+get-azsubscription //to list all the subscriptions
+
+ set-azcontext 9dbfc075-c1ba-4e79-a9af-dbb9417a13cb //to set the hacking subscription
+
+get-azstorageaccount //to list storage accounts
+
+$a = (get-azstorageaccount -storageaccountname negartesting -resourcegroupname negartesting).id //to set the storage account id to a variable
+
+$a //to test what's inside the variable
+
+Result:
+PS /home/yuri> $a = (get-azstorageaccount -storageaccountname negartesting -resourcegroupname negartesting).id
+PS /home/yuri> $a
+/subscriptions/9dbfc075-c1ba-4e79-a9af-dbb9417a13cb/resourceGroups/negartesting/providers/Microsoft.Storage/storageAccounts/negartesting
+
+
+$resource = (get-azresource -name win-ca -resourcegroupname apps-win-yn).id //to set the id of the resource into a variable
+
+$resource //to test it
+
+Result:
+
+PS /home/yuri> $resource = (get-azresource -name win-ca -resourcegroupname apps-win-yn).id
+PS /home/yuri> $resource
+/subscriptions/9dbfc075-c1ba-4e79-a9af-dbb9417a13cb/resourceGroups/apps-win-yn/providers/Microsoft.Web/serverFarms/win-ca
+
+set-azdiagnosticsetting -resourceid $resource -storageaccountid $a -enable $true //to enable the diagnostic setting specifying the resource id and storage account id
+
+
+
