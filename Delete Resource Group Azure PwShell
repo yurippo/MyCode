@@ -1,0 +1,19 @@
+ set-azcontext 9dbfc075-c1ba-4e79-a9af-dbb9417a13cb
+ 
+ Remove-AzResourceGroup -Name "Paas"
+ 
+ Result
+ 
+ PS /home/yuri> set-azcontext 9dbfc075-c1ba-4e79-a9af-dbb9417a13cb
+
+Name                                     Account                   SubscriptionName          Environment               TenantId
+----                                     -------                   ----------------          -----------               --------
+hacking (9dbfc075-c1ba-4e79-a9af-dbb941… MSI@50342                 hacking                   AzureCloud                479fe1bf-d9da-4d20-a47b-…
+
+PS /home/yuri> Remove-AzResourceGroup -Name "Paas"
+
+Confirm
+Are you sure you want to remove resource group 'Paas'
+[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"): Y
+True
+PS /home/yuri>
