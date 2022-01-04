@@ -1,0 +1,43 @@
+To connect to this Azure file share from Windows, choose from the following authentication methods and run the PowerShell commands from a normal 
+(not elevated) PowerShell terminal:
+
+$connectTestResult = Test-NetConnection -ComputerName yuridemostorage.file.core.windows.net -Port 445
+if ($connectTestResult.TcpTestSucceeded) {
+    # Save the password so the drive will persist on reboot
+    cmd.exe /C "cmdkey /add:`"yuridemostorage.file.core.windows.net`" /user:`"localhost\yuridemostorage`" /pass:`"iE3nzui5hd/+nn8puDJEUcniDpWs6XnnEYVIIipLDivZf6JD82On27kzUoCLgakK+5FGT6Nnqj7eiulETRyDCw==`""
+    # Mount the drive
+    New-PSDrive -Name Z -PSProvider FileSystem -Root "\\yuridemostorage.file.core.windows.net\tempfiles" -Persist
+} else {
+    Write-Error -Message "Unable to reach the Azure storage account via port 445. Check to make sure your organization or ISP is not blocking port 445, or use Azure P2S VPN, Azure S2S VPN, or Express Route to tunnel SMB traffic over a different port."
+}
+
+
+
+
+This script will check to see if this storage account is accessible via TCP port 445, which is the port SMB uses. 
+If port 445 is available, your Azure file share will be persistently mounted. Your organization or internet service provider (ISP) may block port 445, 
+however you may use Azure Point-to-Site (P2S) VPN, Azure Site-to-Site (S2S) VPN, or ExpressRoute to tunnel SMB traffic to your Azure file share over a different port.
+
+Note: The script will only work on Windows Server 2012 and above.
+
+
+
+
+On Linux
+
+sudo mkdir /mnt/tempfiles
+if [ ! -d "/etc/smbcredentials" ]; then
+sudo mkdir /etc/smbcredentials
+fi
+if [ ! -f "/etc/smbcredentials/yuridemostorage.cred" ]; then
+    sudo bash -c 'echo "username=yuridemostorage" >> /etc/smbcredentials/yuridemostorage.cred'
+    sudo bash -c 'echo "password=iE3nzui5hd/+nn8puDJEUcniDpWs6XnnEYVIIipLDivZf6JD82On27kzUoCLgakK+5FGT6Nnqj7eiulETRyDCw==" >> /etc/smbcredentials/yuridemostorage.cred'
+fi
+sudo chmod 600 /etc/smbcredentials/yuridemostorage.cred
+
+sudo bash -c 'echo "//yuridemostorage.file.core.windows.net/tempfiles /mnt/tempfiles cifs nofail,vers=3.0,credentials=/etc/smbcredentials/yuridemostorage.cred,dir_mode=0777,file_mode=0777,serverino" >> /etc/fstab'
+sudo mount -t cifs //yuridemostorage.file.core.windows.net/tempfiles /mnt/tempfiles -o vers=3.0,credentials=/etc/smbcredentials/yuridemostorage.cred,dir_mode=0777,file_mode=0777,serverino
+
+On Mac
+
+open smb://yuridemostorage:iE3nzui5hd%2F%2Bnn8puDJEUcniDpWs6XnnEYVIIipLDivZf6JD82On27kzUoCLgakK%2B5FGT6Nnqj7eiulETRyDCw%3D%3D@yuridemostorage.file.core.windows.net/tempfiles
