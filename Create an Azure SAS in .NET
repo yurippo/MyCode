@@ -1,0 +1,50 @@
+Because your company provides access to third parties, you can't use Azure AD to create service principals for each third party that requires access to medical images. 
+Your app uses a storage account key for each individual file.
+The following steps show how to accomplish these steps in code.
+
+Create a blob container to connect to the storage account on Azure
+
+C#
+
+BlobContainerClient container = new BlobContainerClient( "ConnectionString", "Container" );
+
+
+Retrieve the blob you want to create a SAS token for and create a BlobClient
+
+C#
+
+foreach (BlobItem blobItem in container.GetBlobs())
+{
+    BlobClient blob = container.GetBlobClient(blobItem.Name);
+}
+
+
+Create a BlobSasBuilder object for the blob you use to generate the SAS token
+
+C#
+
+BlobSasBuilder sas = new BlobSasBuilder
+{
+    BlobContainerName = blob.BlobContainerName,
+    BlobName = blob.Name,
+    Resource = "b",
+    ExpiresOn = DateTimeOffset.UtcNow.AddMinutes(1)
+};
+
+// Allow read access
+sas.SetPermissions(BlobSasPermissions.Read);
+
+
+Authenticate a call to the ToSasQueryParameters method of the BlobSasBuilder object
+
+C#
+
+StorageSharedKeyCredential storageSharedKeyCredential = new StorageSharedKeyCredential( "AccountName", "AccountKey");
+
+sasToken = sas.ToSasQueryParameters(storageSharedKeyCredential).ToString();
+
+Note
+
+All of the previous code uses Azure Storage API version 12.
+All the examples on docs.microsoft.com use the legacy version of the API. 
+To see more code samples for version 12, go to the GitHub repository Azure.Storage.Blobs Samples.
