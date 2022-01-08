@@ -1,0 +1,745 @@
+Azure Storage enables you to authorize access to files with a shared key, with a shared access signature (SAS), or via Azure Active Directory (Azure AD). 
+With a SAS, you control what a client can do with the files and for how long.
+
+Your company's image diagnostic system accesses its patient images internally via a shared key. You need to create an API to allow third parties access to diagnostic images.
+You'll create a test page on your web app to see how a SAS 
+can help you grant secure access to third-party clients.
+
+In this exercise, you'll create a storage account and upload some example patient images. You'll deploy your team's existing web app and test that it can access the storage.
+The last step is to add C# and JavaScript code to generate a SAS token on demand to view the images securely.
+
+Create a storage account and upload images
+
+1. Create a storage account and upload images
+
+Azure CLI
+
+export STORAGENAME=medicalrecords$RANDOM
+
+az storage account create \
+    --name $STORAGENAME \
+    --access-tier hot \
+    --kind StorageV2 \
+    --resource-group learn-cb4ca827-e537-45fa-8aa1-6c3e0ccb6d85
+    
+    Result:
+    
+    
+Welcome to Azure Cloud Shell
+
+Type "az" to use Azure CLI
+Type "help" to learn about Cloud Shell
+
+yuri_prata12@Azure:~$ export STORAGENAME=medicalrecords$RANDOM
+yuri_prata12@Azure:~$ az storage account create \
+>     --name $STORAGENAME \
+>     --access-tier hot \
+>     --kind StorageV2 \
+>     --resource-group learn-cb4ca827-e537-45fa-8aa1-6c3e0ccb6d85
+{
+  "accessTier": "Hot",
+  "allowBlobPublicAccess": true,
+  "allowCrossTenantReplication": null,
+  "allowSharedKeyAccess": null,
+  "azureFilesIdentityBasedAuthentication": null,
+  "blobRestoreStatus": null,
+  "creationTime": "2022-01-08T12:04:23.728884+00:00",
+  "customDomain": null,
+  "defaultToOAuthAuthentication": null,
+  "enableHttpsTrafficOnly": true,
+  "enableNfsV3": null,
+  "encryption": {
+    "encryptionIdentity": null,
+    "keySource": "Microsoft.Storage",
+    "keyVaultProperties": null,
+    "requireInfrastructureEncryption": null,
+    "services": {
+      "blob": {
+        "enabled": true,
+        "keyType": "Account",
+        "lastEnabledTime": "2022-01-08T12:04:23.822661+00:00"
+      },
+      "file": {
+        "enabled": true,
+        "keyType": "Account",
+        "lastEnabledTime": "2022-01-08T12:04:23.822661+00:00"
+      },
+      "queue": null,
+      "table": null
+    }
+  },
+  "extendedLocation": null,
+  "failoverInProgress": null,
+  "geoReplicationStats": null,
+  "id": "/subscriptions/8254cfcc-22cc-4e2f-867f-1235ba2ea380/resourceGroups/learn-cb4ca827-e537-45fa-8aa1-6c3e0ccb6d85/providers/Microsoft.Storage/storageAccounts/medicalrecords1988",
+  "identity": null,
+  "immutableStorageWithVersioning": null,
+  "isHnsEnabled": null,
+  "keyCreationTime": {
+    "key1": "2022-01-08T12:04:23.822661+00:00",
+    "key2": "2022-01-08T12:04:23.822661+00:00"
+  },
+  "keyPolicy": null,
+  "kind": "StorageV2",
+  "largeFileSharesState": null,
+  "lastGeoFailoverTime": null,
+  "location": "westus",
+  "minimumTlsVersion": "TLS1_0",
+  "name": "medicalrecords1988",
+  "networkRuleSet": {
+    "bypass": "AzureServices",
+    "defaultAction": "Allow",
+    "ipRules": [],
+    "resourceAccessRules": null,
+    "virtualNetworkRules": []
+  },
+  "primaryEndpoints": {
+    "blob": "https://medicalrecords1988.blob.core.windows.net/",
+    "dfs": "https://medicalrecords1988.dfs.core.windows.net/",
+    "file": "https://medicalrecords1988.file.core.windows.net/",
+    "internetEndpoints": null,
+    "microsoftEndpoints": null,
+    "queue": "https://medicalrecords1988.queue.core.windows.net/",
+    "table": "https://medicalrecords1988.table.core.windows.net/",
+    "web": "https://medicalrecords1988.z22.web.core.windows.net/"
+  },
+  "primaryLocation": "westus",
+  "privateEndpointConnections": [],
+  "provisioningState": "Succeeded",
+  "publicNetworkAccess": null,
+  "resourceGroup": "learn-cb4ca827-e537-45fa-8aa1-6c3e0ccb6d85",
+  "routingPreference": null,
+  "sasPolicy": null,
+  "secondaryEndpoints": {
+    "blob": "https://medicalrecords1988-secondary.blob.core.windows.net/",
+    "dfs": "https://medicalrecords1988-secondary.dfs.core.windows.net/",
+    "file": null,
+    "internetEndpoints": null,
+    "microsoftEndpoints": null,
+    "queue": "https://medicalrecords1988-secondary.queue.core.windows.net/",
+    "table": "https://medicalrecords1988-secondary.table.core.windows.net/",
+    "web": "https://medicalrecords1988-secondary.z22.web.core.windows.net/"
+  },
+  "secondaryLocation": "eastus",
+  "sku": {
+    "name": "Standard_RAGRS",
+    "tier": "Standard"
+  },
+  "statusOfPrimary": "available",
+  "statusOfSecondary": "available",
+  "tags": {},
+  "type": "Microsoft.Storage/storageAccounts"
+}
+
+
+2. Create a container under the storage account for storing the images.
+
+Azure CLI
+
+az storage container create \
+    --name patient-images \
+    --account-name $STORAGENAME \
+    --public-access off
+
+Result:
+
+yuri_prata12@Azure:~$ az storage container create \
+>     --name patient-images \
+>     --account-name $STORAGENAME \
+>     --public-access off
+
+There are no credentials provided in your command and environment, we will query for account key for your storage account.
+It is recommended to provide --connection-string, --account-key or --sas-token in your command as credentials.
+
+You also can add `--auth-mode login` in your command to use Azure Active Directory (Azure AD) for authorization if your login account is assigned required RBAC roles.
+For more information about RBAC roles in storage, visit https://docs.microsoft.com/azure/storage/common/storage-auth-aad-rbac-cli.
+
+In addition, setting the corresponding environment variables can avoid inputting credentials in your command. Please use --help to get more information about environment variable usage.
+{
+  "created": true
+}
+yuri_prata12@Azure:~$
+
+3. Clone your team's existing web app. This repository contains example images used by your team for testing.
+
+Bash
+
+git clone https://github.com/MicrosoftDocs/mslearn-control-access-to-azure-storage-with-sas.git sas
+
+Result:
+
+yuri_prata12@Azure:~$ git clone https://github.com/MicrosoftDocs/mslearn-control-access-to-azure-storage-with-sas.git sas
+Cloning into 'sas'...
+remote: Enumerating objects: 223, done.
+remote: Counting objects: 100% (223/223), done.
+remote: Compressing objects: 100% (155/155), done.
+remote: Total 223 (delta 103), reused 166 (delta 62), pack-reused 0
+Receiving objects: 100% (223/223), 956.01 KiB | 23.90 MiB/s, done.
+Resolving deltas: 100% (103/103), done.
+yuri_prata12@Azure:~$
+
+
+4. Use the Azure CLI upload-batch command to upload the images into your storage account.
+
+Azure CLI
+
+az storage blob upload-batch \
+    --source sas \
+    --destination patient-images \
+    --account-name $STORAGENAME \
+    --pattern *.jpg
+
+
+Result:
+
+yuri_prata12@Azure:~$ az storage blob upload-batch \
+>     --source sas \
+>     --destination patient-images \
+>     --account-name $STORAGENAME \
+>     --pattern *.jpg
+
+There are no credentials provided in your command and environment, we will query for account key for your storage account.
+It is recommended to provide --connection-string, --account-key or --sas-token in your command as credentials.
+
+You also can add `--auth-mode login` in your command to use Azure Active Directory (Azure AD) for authorization if your login account is assigned required RBAC roles.
+For more information about RBAC roles in storage, visit https://docs.microsoft.com/azure/storage/common/storage-auth-aad-rbac-cli.
+
+In addition, setting the corresponding environment variables can avoid inputting credentials in your command. Please use --help to get more information about environment variable usage.
+Finished[#############################################################]  100.0000%
+[
+  {
+    "Blob": "https://medicalrecords1988.blob.core.windows.net/patient-images/patient-e155438243119.jpg",
+    "Last Modified": "2022-01-08T12:11:19+00:00",
+    "Type": "image/jpeg",
+    "eTag": "\"0x8D9D29FFAAC0FC3\""
+  },
+  {
+    "Blob": "https://medicalrecords1988.blob.core.windows.net/patient-images/patient-32589.jpg",
+    "Last Modified": "2022-01-08T12:11:19+00:00",
+    "Type": "image/jpeg",
+    "eTag": "\"0x8D9D29FFAC0A61F\""
+  },
+  {
+    "Blob": "https://medicalrecords1988.blob.core.windows.net/patient-images/patient-116139-nq8z7f.jpg",
+    "Last Modified": "2022-01-08T12:11:19+00:00",
+    "Type": "image/jpeg",
+    "eTag": "\"0x8D9D29FFACC1614\""
+  }
+]
+yuri_prata12@Azure:~$
+
+
+
+Test the patient diagnostic image system
+
+1.Open the appsettings.json file in code editor so we can add the connection string for your storage account.
+
+Bash
+
+code sas/appsettings.json
+
+Result:
+
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "StorageAccount": {
+    "ConnectionString": "[connection string]",
+    "Container" : "patient-images",
+    "AccountName":"medicalrecords",
+    "AccountKey":"[account key]"
+  }  
+}
+
+
+
+
+
+
+2. In Cloud Shell, enter the following code to obtain the connection string to your storage account.
+
+Azure CLI
+
+az storage account show-connection-string --name $STORAGENAME
+
+Result:
+
+yuri_prata12@Azure:~$ az storage account show-connection-string --name $STORAGENAME
+{
+  "connectionString": "DefaultEndpointsProtocol=https;EndpointSuffix=core.windows.net;AccountName=medicalrecords1988;AccountKey=ErybW6U69EFv//CYrlsJQTf1ctgFPmPYntDu8RpxsmxfunoB2eJduSSpwtenG8/ktqBzjgQ6m2C4tNwpRgTzpQ=="
+}
+yuri_prata12@Azure:~$
+
+
+
+You should see a response in this format:
+
+{
+  "connectionString": "DefaultEndpointsProtocol=https;EndpointSuffix=core.windows.net;AccountName=medicalrecords3215;AccountKey=UGLNuJWUBtodz+VbhhFcMwkzDpX49Wf7FxtuQDTOHhH+LpCtSQ2LBP0Ju8TQby5CeOt7DMYBgH45SX9yFwqPvA=="
+}
+
+
+Copy the connectionString value, including the quotation marks.
+
+3.In code editor, replace the ConnectionString value "[connection string]" with the string you copied.
+
+4.Copy the value for AccountName= in the body of the connection string.
+
+5.Replace the value for the AccountName parameter with the account name value you copied.
+
+6.Copy the value for AccountKey= in the body of the connection string (do not include the quotation mark). Make sure to include the == at the end of the value.
+
+7.Replace the value of the AccountKey parameter with the account key value you copied.
+
+8.The appsettings.json file should now look similar to this output.
+
+JSON
+
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "StorageAccount": {
+    "ConnectionString": "DefaultEndpointsProtocol=https;AccountName=medicalrecords3215;AccountKey=UGLNuJWUBtodz+VbhhFcMwkzDpX49Wf7FxtuQDTOHhH+LpCtSQ2LBP0Ju8TQby5CeOt7DMYBgH45SX9yFwqPvA==;EndpointSuffix=core.windows.net",
+    "Container" : "patient-images",
+    "AccountName":"medicalrecords3215",
+    "AccountKey":"UGLNuJWUBtodz+VbhhFcMwkzDpX49Wf7FxtuQDTOHhH+LpCtSQ2LBP0Ju8TQby5CeOt7DMYBgH45SX9yFwqPvA=="
+  }  
+}
+
+9. Save and close the code editor by selecting Ctrl+S, and then selecting Ctrl+Q.
+
+10. To access your web app when it's running in Cloud Shell, you need to open a port.
+
+Bash
+
+curl -X POST http://localhost:8888/openPort/8000;
+
+
+Result:
+
+yuri_prata12@Azure:~$ curl -X POST http://localhost:8888/openPort/8000;
+{"message":"Port 8000 is open","url":"https://gateway10.eastus.console.azure.com/n/cc-b858ba4f/cc-b858ba4f/proxy/8000/"}yuri_prata12@Azure:~$
+
+
+This command returns a url where your app can be accessed.
+
+JSON
+
+{"message":"Port 8000 is open","url":"https://gateway10.eastus.console.azure.com/n/cc-b858ba4f/cc-b858ba4f/proxy/8000/"}
+
+
+
+11.Run your app.
+
+Bash
+
+cd sas
+dotnet run
+
+Result:
+
+yuri_prata12@Azure:~$ cd sas
+yuri_prata12@Azure:~/sas$ dotnet run
+
+yuri_prata12@Azure:~/sas$ dotnet run
+info: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[0]
+      User profile is available. Using '/home/yuri_prata12/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+info: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[58]
+      Creating key {dfe86e5a-bd84-47d2-a5c4-4b525ec4b5c0} with creation date 2022-01-08 12:38:18Z, activation date 2022-01-08 12:38:18Z, and expiration date 2022-04-08 12:38:18Z.
+warn: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[35]
+      No XML encryptor configured. Key {dfe86e5a-bd84-47d2-a5c4-4b525ec4b5c0} may be persisted to storage in unencrypted form.
+info: Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository[39]
+      Writing data to file '/home/yuri_prata12/.aspnet/DataProtection-Keys/key-dfe86e5a-bd84-47d2-a5c4-4b525ec4b5c0.xml'.
+warn: Microsoft.AspNetCore.Server.Kestrel[0]
+      Unable to bind to https://localhost:8001 on the IPv6 loopback interface: 'Cannot assign requested address'.
+warn: Microsoft.AspNetCore.Server.Kestrel[0]
+      Unable to bind to http://localhost:8000 on the IPv6 loopback interface: 'Cannot assign requested address'.
+Hosting environment: Development
+Content root path: /home/yuri_prata12/sas
+Now listening on: https://localhost:8001
+Now listening on: http://localhost:8000
+Application started. Press Ctrl+C to shut down.
+
+When the app has compiled, the Cloud Shell console displays details similar to the following example.
+
+Hosting environment: Development
+Content root path: /home/<yourusername>/sas
+Now listening on: https://localhost:8001
+Now listening on: http://localhost:8000
+Application started. Press Ctrl+C to shut down.
+
+12.In a browser, paste the URL that was returned by the cURL command. Make sure you include the slash (/) at the end of the address.
+
+https://gateway10.eastus.console.azure.com/n/cc-b858ba4f/cc-b858ba4f/proxy/8000/
+
+Up ;)
+
+The URL should be in this format: https://gateway11.northeurope.console.azure.com/n/cc-4016c848/cc-4016c848/proxy/8000/.
+
+Sign in if you're prompted to do so. The Lamna Healthcare Patient Diagnostic Image System appears.
+
+13.Select Get all patients to view a listing of all the images in the storage account.
+
+Add code to create a SAS
+
+1.In the Cloud Shell, stop the web app by selecting Ctrl+C.
+
+2.Let's enhance the PatientRecordController class to create an on-demand SAS and return it to the front end of the web app.
+
+3.Enter the following code to open the PatientRecordController.cs file in the code editor.
+
+Bash
+
+code Controllers/PatientRecordController.cs
+
+Result:
+
+using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration; 
+
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using Azure.Storage.Sas;
+using Azure.Storage;
+
+namespace patientrecords.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class PatientRecordsController : ControllerBase
+    {
+        private readonly ILogger<PatientRecordsController> _logger;
+        private IConfiguration _iconfiguration;
+
+        private BlobContainerClient _container;
+ 
+
+        public PatientRecordsController(ILogger<PatientRecordsController> logger, IConfiguration iconfiguration)
+        {
+            _logger = logger;
+            _iconfiguration = iconfiguration;
+
+            // Azure Blob storage client library v12
+            _container = new BlobContainerClient(
+                _iconfiguration.GetValue<string>("StorageAccount:ConnectionString"),
+                _iconfiguration.GetValue<string>("StorageAccount:Container")
+            );
+        }
+
+        // GET PatientRecord
+        [HttpGet]
+        public IEnumerable<PatientRecord> Get()
+        {
+            List<PatientRecord> records = new List<PatientRecord>();
+
+            foreach (BlobItem blobItem in _container.GetBlobs())
+            {
+                BlobClient blob = _container.GetBlobClient(blobItem.Name);
+                var patient = new PatientRecord { name=blob.Name, imageURI=blob.Uri.ToString() };
+                records.Add(patient);
+            }
+
+            return records;
+        }
+
+        // GET PatientRecord/patient-nnnnnn
+        [HttpGet("{Name}")]
+        public PatientRecord Get(string name)
+        {
+            BlobClient blob = _container.GetBlobClient(name);
+            return new PatientRecord { name=blob.Name, imageURI=blob.Uri.AbsoluteUri };
+        }
+    }
+}
+
+
+4.Add the following code to the bottom of the class under the GET PatientRecord/patient-nnnnnn method.
+
+C#
+
+// GET PatientRecord/patient-nnnnnn/secure
+[HttpGet("{Name}/{secure}")]
+public PatientRecord Get(string name, string flag)
+{
+    BlobClient blob = _container.GetBlobClient(name);
+    return new PatientRecord { name=blob.Name, imageURI=blob.Uri.AbsoluteUri, sasToken=GetBlobSas(blob) };
+}
+
+
+This method returns the requested patient image with a SAS that can be used to access it.
+
+
+5.Add a method that creates the SAS for the blob.
+
+C#
+
+// Build a SAS token for the given blob
+private string GetBlobSas(BlobClient blob)
+{
+    // Create a user SAS that only allows reading for a minute
+    BlobSasBuilder sas = new BlobSasBuilder 
+    {
+        BlobContainerName = blob.BlobContainerName,
+        BlobName = blob.Name,
+        Resource = "b",
+        ExpiresOn = DateTimeOffset.UtcNow.AddMinutes(1)
+    };
+    // Allow read access
+    sas.SetPermissions(BlobSasPermissions.Read);
+
+    // Use the shared key to access the blob
+    var storageSharedKeyCredential = new StorageSharedKeyCredential(
+        _iconfiguration.GetValue<string>("StorageAccount:AccountName"),
+        _iconfiguration.GetValue<string>("StorageAccount:AccountKey")
+    );
+
+    return '?' + sas.ToSasQueryParameters(storageSharedKeyCredential).ToString();
+}
+
+
+This method uses the passed BlobClient object to create a BlobSasBuilder to generate a SAS that is read-only and expires in one minute.
+
+6.Save the file by selecting Ctrl+S, and then and quit the editor by selecting Ctrl+Q.
+
+Result:
+
+using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration; 
+
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using Azure.Storage.Sas;
+using Azure.Storage;
+
+namespace patientrecords.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class PatientRecordsController : ControllerBase
+    {
+        private readonly ILogger<PatientRecordsController> _logger;
+        private IConfiguration _iconfiguration;
+
+        private BlobContainerClient _container;
+ 
+
+        public PatientRecordsController(ILogger<PatientRecordsController> logger, IConfiguration iconfiguration)
+        {
+            _logger = logger;
+            _iconfiguration = iconfiguration;
+
+            // Azure Blob storage client library v12
+            _container = new BlobContainerClient(
+                _iconfiguration.GetValue<string>("StorageAccount:ConnectionString"),
+                _iconfiguration.GetValue<string>("StorageAccount:Container")
+            );
+        }
+
+        // GET PatientRecord
+        [HttpGet]
+        public IEnumerable<PatientRecord> Get()
+        {
+            List<PatientRecord> records = new List<PatientRecord>();
+
+            foreach (BlobItem blobItem in _container.GetBlobs())
+            {
+                BlobClient blob = _container.GetBlobClient(blobItem.Name);
+                var patient = new PatientRecord { name=blob.Name, imageURI=blob.Uri.ToString() };
+                records.Add(patient);
+            }
+
+            return records;
+        }
+
+        // GET PatientRecord/patient-nnnnnn
+        [HttpGet("{Name}")]
+        public PatientRecord Get(string name)
+        {
+            BlobClient blob = _container.GetBlobClient(name);
+            return new PatientRecord { name=blob.Name, imageURI=blob.Uri.AbsoluteUri };
+        }
+
+        // GET PatientRecord/patient-nnnnnn/secure
+        [HttpGet("{Name}/{secure}")]
+        public PatientRecord Get(string name, string flag)
+        {
+            BlobClient blob = _container.GetBlobClient(name);
+            return new PatientRecord { name=blob.Name, imageURI=blob.Uri.AbsoluteUri, sasToken=GetBlobSas(blob) };
+
+            // Build a SAS token for the given blob
+            private string GetBlobSas(BlobClient blob)
+        {
+    // Create a user SAS that only allows reading for a minute
+    BlobSasBuilder sas = new BlobSasBuilder 
+    {
+        BlobContainerName = blob.BlobContainerName,
+        BlobName = blob.Name,
+        Resource = "b",
+        ExpiresOn = DateTimeOffset.UtcNow.AddMinutes(1)
+    };
+    // Allow read access
+    sas.SetPermissions(BlobSasPermissions.Read);
+
+    // Use the shared key to access the blob
+    var storageSharedKeyCredential = new StorageSharedKeyCredential(
+        _iconfiguration.GetValue<string>("StorageAccount:AccountName"),
+        _iconfiguration.GetValue<string>("StorageAccount:AccountKey")
+    );
+
+    return '?' + sas.ToSasQueryParameters(storageSharedKeyCredential).ToString();
+}
+}        
+    }
+}
+
+
+Add code to use the SAS
+
+
+Let's add code to the webpage to request the SAS for the image.
+
+1.Enter the following command to edit the external.cshtml page.
+
+Bash
+
+code Pages/external.cshtml
+
+2.At the bottom of the file, above the </script> tag, add the following code:
+
+JavaScript
+
+$('#btn-getKey').click(function(){
+    $.get('api/PatientRecords/' + $('#patientID').val() + '/secure', function (data) {
+        $('#sasKey').val(data.sasToken);
+    }, 'json');
+});
+
+
+
+This jQuery code adds a click listener on the btn-getKey button.
+The code executes an Ajax call to the new secure URL for the given image file.
+When it returns, it populates the key input box with the SAS.
+
+3.Save the changes by selecting Ctrl+S, and then and quit the editor by selecting Ctrl+Q.
+
+Test your changes
+
+1.Run your updated app.
+
+Bash
+
+dotnet run
+
+2.In your browser, refresh the tab for your web site. Select Get all patients, and then copy one of the image filenames.
+
+3.In the menu at the top of the web page, select External companies.
+
+
+4.Paste the filename into the Patient image filename field.
+
+5.Select View scan. The patient scan image isn't accessible because you haven't created a SAS.
+
+Note
+
+If you are viewing the console in your browser, you'll see the web server returned a 404 error-code message.
+
+6.Select Get Key, which should populate the Key field with a SAS
+
+7.Select View scan. The patient's diagnostic image should appear.
+
+
+8.In your browser, right-click the image and copy the image address.
+
+9.Open a new browser tab, paste the copied image address in the address bar, and press Enter.
+If it's been longer than a minute since you created the SAS, you'll see an error message. If it's been less than a minute, the image should display.
+
+
+
+Note
+
+You might need to refresh the page.
+
+XML
+
+<Error>
+    <Code>AuthenticationFailed</Code>
+    <Message>Server failed to authenticate the request. Make sure the value of Authorization header is formed correctly, including the signature.
+    RequestId:03eda893-f01e-0028-2d73-c5c947000000
+    Time:2021-01-07T16:02:55.3752851Z</Message>
+    <AuthenticationErrorDetail>Signed expiry time [Tue, 07 Jan 2021 16:02:00 GMT] must be after signed start time [Tue, 07 Jan 2021 16:02:55 GMT]</AuthenticationErrorDetail>
+</Error>
+
+
+
+Note
+
+To view this error message from some browsers, you may need to open a new browser window that won't have cached the image.
+
+10.In Cloud Shell, quit the web app by selecting Ctrl+C.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
