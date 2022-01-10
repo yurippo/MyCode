@@ -1,0 +1,76 @@
+You can create a stored access policy with C# code by using the Azure portal or Azure CLI commands.
+
+With C# .NET code
+
+C#
+
+BlobSignedIdentifier identifier = new BlobSignedIdentifier
+{
+    Id = "stored access policy identifier",
+    AccessPolicy = new BlobAccessPolicy
+    {
+        ExpiresOn = DateTimeOffset.UtcNow.AddHours(1),
+        Permissions = "rw"
+    }
+};
+
+blobContainer.SetAccessPolicy(permissions: new BlobSignedIdentifier[] { identifier });
+
+
+With the portal
+
+In the portal, go to the storage account and then go to the blob storage container. On the left, select Access policy. To add a new stored access policy, select + Add policy.
+
+You can then enter all the required parameters.
+
+
+With Azure CLI commands
+
+Azure CLI
+
+az storage container policy create \
+    --name <stored access policy identifier> \
+    --container-name <container name> \
+    --start <start time UTC datetime> \
+    --expiry <expiry time UTC datetime> \
+    --permissions <(a)dd, (c)reate, (d)elete, (l)ist, (r)ead, or (w)rite> \
+    --account-key <storage account key> \
+    --account-name <storage account name> \
+    
+ Create SAS tokens and associate them with stored access policies
+Let's associate the stored access policy you created with any new SAS tokens you need. 
+For your company's patient diagnostic image web app, update the existing code to add the previous code.
+Then, in the method that creates the SAS token, you reference the new stored access policy.
+
+All of your existing code that's needed to create the SAS token is:
+
+C#
+
+BlobSasBuilder sas = new BlobSasBuilder
+{
+    BlobContainerName = blob.BlobContainerName,
+    BlobName = blob.Name,
+    Resource = "b",
+    ExpiresOn = DateTimeOffset.UtcNow.AddMinutes(1)
+};
+// Allow read access
+sas.SetPermissions(BlobSasPermissions.Read);
+
+
+and it can be replaced by referencing your new access policy.
+
+
+C#
+
+// Create a user SAS that only allows reading for a minute
+BlobSasBuilder sas = new BlobSasBuilder
+{
+    Identifier = "stored access policy identifier"
+};
+
+
+You can have up to five stored access policies for on a single blob container.
+
+
+
+
