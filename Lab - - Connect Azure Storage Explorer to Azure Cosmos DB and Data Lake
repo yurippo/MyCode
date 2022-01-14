@@ -1,0 +1,323 @@
+Azure Storage Explorer isn't just about storage accounts. You can also use it to investigate and download data from Azure Cosmos DB or Azure Data Lake.
+
+You've seen how simple it is to create and manage blob and queue resources in your Azure storage account. Now you want to push your understanding further and see how the storage account connects to your developers'
+Cosmos DB database and data lake, which they use to store infrastructure data for the CRM system.
+
+Here, you'll learn how to create a new Storage Explorer connection to Azure Cosmos DB, create a database, and populate it with content. 
+Finally, you'll see how to connect to an Azure Data Lake Storage Gen2 account, create a container, and upload data into it.
+
+Note
+
+The Azure Cosmos DB integration with Storage Explorer has been deprecated. Any existing functionality will not be removed for a minimum of one year from this release.
+You should use the Azure Portal, Azure Portal desktop app
+or the standalone Azure Cosmos explorer instead. The alternative options contain many new features that aren’t currently supported in Storage Explorer.
+
+Create a Cosmos DB account
+
+Before you use Storage Explorer to connect to Azure Cosmos DB with a connection string, you need to create an account.
+
+1. From Azure Cloud Shell, run this command:
+
+Azure CLI
+
+export NAME=cosmos$RANDOM
+az cosmosdb create \
+    --name $NAME \
+    --kind GlobalDocumentDB \
+    --resource-group learn-732892a5-7d43-4005-a62c-e7858680f823
+    
+JSON Generated
+
+{
+  "analyticalStorageConfiguration": {
+    "schemaType": "WellDefined"
+  },
+  "apiProperties": null,
+  "backupPolicy": {
+    "migrationState": null,
+    "periodicModeProperties": {
+      "backupIntervalInMinutes": 240,
+      "backupRetentionIntervalInHours": 8,
+      "backupStorageRedundancy": "Geo"
+    },
+    "type": "Periodic"
+  },
+  "capabilities": [],
+  "capacity": null,
+  "connectorOffer": null,
+  "consistencyPolicy": {
+    "defaultConsistencyLevel": "Session",
+    "maxIntervalInSeconds": 5,
+    "maxStalenessPrefix": 100
+  },
+  "cors": [],
+  "createMode": null,
+  "databaseAccountOfferType": "Standard",
+  "defaultIdentity": "FirstPartyIdentity",
+  "disableKeyBasedMetadataWriteAccess": false,
+  "disableLocalAuth": false,
+  "documentEndpoint": "https://cosmos21154.documents.azure.com:443/",
+  "enableAnalyticalStorage": false,
+  "enableAutomaticFailover": false,
+  "enableCassandraConnector": null,
+  "enableFreeTier": false,
+  "enableMultipleWriteLocations": false,
+  "failoverPolicies": [
+    {
+      "failoverPriority": 0,
+      "id": "cosmos21154-westus",
+      "locationName": "West US"
+    }
+  ],
+  "id": "/subscriptions/89cec965-ade4-4ffb-923f-048ad2128518/resourceGroups/learn-732892a5-7d43-4005-a62c-e7858680f823/providers/Microsoft.DocumentDB/databaseAccounts/cosmos21154",
+  "identity": {
+    "principalId": null,
+    "tenantId": null,
+    "type": "None",
+    "userAssignedIdentities": null
+  },
+  "instanceId": "521c3cc7-1170-4714-8fd0-425e218247b4",
+  "ipRules": [],
+  "isVirtualNetworkFilterEnabled": false,
+  "keyVaultKeyUri": null,
+  "kind": "GlobalDocumentDB",
+  "location": "West US",
+  "locations": [
+    {
+      "documentEndpoint": "https://cosmos21154-westus.documents.azure.com:443/",
+      "failoverPriority": 0,
+      "id": "cosmos21154-westus",
+      "isZoneRedundant": false,
+      "locationName": "West US",
+      "provisioningState": "Succeeded"
+    }
+  ],
+  "name": "cosmos21154",
+  "networkAclBypass": "None",
+  "networkAclBypassResourceIds": [],
+  "privateEndpointConnections": null,
+  "provisioningState": "Succeeded",
+  "publicNetworkAccess": "Enabled",
+  "readLocations": [
+    {
+      "documentEndpoint": "https://cosmos21154-westus.documents.azure.com:443/",
+      "failoverPriority": 0,
+      "id": "cosmos21154-westus",
+      "isZoneRedundant": false,
+      "locationName": "West US",
+      "provisioningState": "Succeeded"
+    }
+  ],
+  "resourceGroup": "learn-732892a5-7d43-4005-a62c-e7858680f823",
+  "restoreParameters": null,
+  "systemData": {
+    "createdAt": "2022-01-14T06:31:19.189617+00:00",
+    "createdBy": null,
+    "createdByType": null,
+    "lastModifiedAt": null,
+    "lastModifiedBy": null,
+    "lastModifiedByType": null
+  },
+  "tags": {},
+  "type": "Microsoft.DocumentDB/databaseAccounts",
+  "virtualNetworkRules": [],
+  "writeLocations": [
+    {
+      "documentEndpoint": "https://cosmos21154-westus.documents.azure.com:443/",
+      "failoverPriority": 0,
+      "id": "cosmos21154-westus",
+      "isZoneRedundant": false,
+      "locationName": "West US",
+      "provisioningState": "Succeeded"
+    }
+  ]
+}
+    
+    
+This command takes a few minutes to run.
+
+2. When the command finishes, you'll see JSON structured output with the details of the Cosmos DB account.
+Note the value of the name of the account for use in a later step.
+
+Obtain your Cosmos DB connection string
+
+Next, obtain the primary master key for your Cosmos DB account. You'll use that key to connect Storage Explorer to Azure Cosmos DB.
+
+1. In Cloud Shell, use the following command:
+
+Azure CLI
+
+az cosmosdb keys list \
+    --name $NAME \
+    --resource-group learn-732892a5-7d43-4005-a62c-e7858680f823 \
+    --type connection-strings
+    
+
+JSON Generated
+
+{
+  "connectionStrings": [
+    {
+      "connectionString": "AccountEndpoint=https://cosmos21154.documents.azure.com:443/;AccountKey=gWZ18TpkHoCNwLLBoa0qPfUF3FTuF5NsgGjUW5KWl7cTc7s8XD0gtCSO8O9mE46kGyX0mfT3nd4UaeqlhgCvfA==;",
+      "description": "Primary SQL Connection String"
+    },
+    {
+      "connectionString": "AccountEndpoint=https://cosmos21154.documents.azure.com:443/;AccountKey=DIbH59ryH4slj7tPzcLRoAdSG05EpYhslPO0L9I5fDB5sYeDusnjMX2NUfwyRpytzyxr21S6SdwivyBGte5cYQ==;",
+      "description": "Secondary SQL Connection String"
+    },
+    {
+      "connectionString": "AccountEndpoint=https://cosmos21154.documents.azure.com:443/;AccountKey=anGdeoSV7YkVY8idMSkHFx5xE60uZiB8NnUum5rfBME7ZCMarFUZYzzeGK44XKejiOmSGuUixRr3y4oH1WgHlQ==;",
+      "description": "Primary Read-Only SQL Connection String"
+    },
+    {
+      "connectionString": "AccountEndpoint=https://cosmos21154.documents.azure.com:443/;AccountKey=xE7vhZezR3V9DaIPtddwyp8TRHBmXLxs7iYwcKo6zKA2BCMFlXE7FjC9jAh2eO6KKTJ4fkJnvDNSLnIKW7MEKQ==;",
+      "description": "Secondary Read-Only SQL Connection String"
+    }
+  ]
+}
+
+Make a note of the Primary SQL Connection String because you'll need it next.
+
+Connect to Azure Cosmos DB by using a connection string
+
+Next, connect Storage Explorer to Azure Cosmos DB through a connection string.
+
+1.If necessary, open Storage Explorer and connect to your Azure account.
+
+2.In the EXPLORER pane, expand Local & Attached.
+
+3. You'll see a Cosmos DB Accounts item. Right-click it and select Connect to Cosmos DB.
+
+4. The connection wizard needs the connection string to Azure Cosmos DB. Copy and paste the Primary SQL Connection String you generated earlier into the Connection string box.
+
+5.You'll now see a Summary view that shows the Account label and name, the account endpoint, and the account key.
+Verify that they're correct, and then select Connect. Select Next.
+
+6. The Azure Cosmos DB connection appears in the Cosmos DB Accounts folder, with the view displayed to the right.
+
+You're now connected to your Cosmos DB account.
+
+Create a Cosmos DB database
+
+So far, you've created an Azure Cosmos DB instance and connected to it by using Storage Explorer.
+Now, you'll use Storage Explorer to create a Cosmos DB database.
+
+1. In the EXPLORER pane, select the Cosmos DB account that you created earlier. Right-click it and select Create Database.
+
+2. Give your database the name products and select Enter.
+
+You've now created a database called products in Azure Cosmos DB.
+
+Create a collection in a Cosmos DB database
+
+Now that you have a Cosmos DB database, it's time to create a collection. When you create a collection, you'll provide an ID or name, and the maximum storage capacity.
+
+1.Right-click the products database and select Create collection.
+
+2.For Collection ID, enter an ID of regions.
+
+
+3.Next, specify whether this collection has a finite amount of storage space or whether it
+will grow to match the size of the collection. A fixed option gives you a maximum collection size of 10 GB.
+
+4.The last field is Throughput. Accept the default of 400.
+
+
+5.Select OK.
+
+You now see that the region's collection is added under the products database. You can add as many collections as you want.
+
+Create documents in a Cosmos DB database collection
+
+The collection can contain many items. You use Storage Explorer to manage these, including creating new documents in your collection.
+
+1. In the EXPLORER pane, expand the regions collection. Select Documents.
+
+2.You now see the regions collection pane. From here, you can manage the data in your collection.
+
+3.To add a document, select New Document. A new empty document is available in the window below.
+
+4.Replace the content of the document with this JSON:
+
+JSON
+
+{
+    "id": "66",
+    "title": "How to create a new document",
+    "rtime": "30 minutes",
+    "_etag": "WFFta1FHgQEtttIE1aaa"
+}
+
+
+The new document appears in the ID pane.
+
+
+Create a Data Lake Storage Gen2 account
+
+Let's now look at connecting to a Data Lake Storage Gen2 account.
+Before you can use Storage Explorer to manage your Data Lake Storage Gen2 account, you need to create the storage account in Azure.
+
+1.In Cloud Shell, install the preview extension to enable the creation of Gen2 accounts, currently in preview.
+
+Azure CLI
+
+az extension add --name storage-preview
+
+
+2. To create the Gen2 storage account, use the az storage account create command:
+
+Azure CLI
+
+az storage account create \
+    --name dlstoragetest$RANDOM \
+    --resource-group learn-732892a5-7d43-4005-a62c-e7858680f823 \
+    --location westus2 \
+    --sku Standard_LRS \
+    --kind StorageV2 \
+    --hns   
+    
+    
+     Note
+
+Please give the Storage Account several minutes to complete.
+
+Connect to your Data Lake Gen2 storage account
+
+Now that you've created a Gen2 storage account, you can connect to it in Storage Explorer.
+
+1.In Storage Explorer, in the EXPLORER pane, locate Concierge Subscription and expand it to show all the storage accounts.
+
+2.Right-click Storage Accounts and select Connect to Azure storage.
+
+3.If you're prompted, sign in with your Azure account.
+
+4.When the connection is successful, you'll see the dlsstoragetest001 (ADLS Gen2) storage account displayed under the storage accounts. Your account will have a different number suffix.
+
+Create a container
+
+All containers in an Azure Data Lake Gen2 storage account are blobs. To create a new container:
+
+1.Right-click the dlsstoragetest001 storage account, and select Create Blob Container from the shortcut menu.
+
+2.Name the new container myfilesystem.
+
+3.When the container is created, the pane for the container appears. There, you can manage the container contents.
+
+Upload and view blob data
+
+With the new myfilesystem container created, you can now upload files or folders to it.
+
+1.To upload a file, select the Upload option, and select Upload Files.
+
+2.In the dialog box, use the ellipsis (...) to select the file that you want to upload.
+
+3.Select the Upload button.
+
+4.The file is available to the myfilesystem container.
+
+You can upload as many files as you want to this folder. Also, you can create an unlimited number of folders. 
+You can then organize and manage the content in your folders, as you do with your file system.
+
+
+
+
