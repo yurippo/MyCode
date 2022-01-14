@@ -1,0 +1,111 @@
+Download and install Azure Storage Explorer
+First, you need to download and install Storage Explorer.
+
+Browse to the Azure Storage Explorer website.
+
+In the Operating system field, select your preferred operating system. The following steps will go through the Windows version of the application. Your steps will be different if you're using a different OS.
+
+Select Download now to download the Storage Explorer installer application to your computer.
+
+Locate the downloaded file and run it. For the Windows version, use the StorageExplorer.exe file.
+
+Accept the license agreement, and select Install.
+
+Browse to the location where you want to install Storage Explorer, or accept the default location. Then, select Next.
+
+For Windows installations, select the Start menu folder. Accept the default, and select Next.
+
+When the installation is complete, select Finish.
+
+Storage Explorer automatically opens after installation.
+
+Connect to an Azure account
+When you first open Storage Explorer, it displays the Connect to Azure Storage wizard.
+
+
+First, connect to Azure. Choose Subscription.
+
+
+There are several Azure environment options to select from. Select Azure, and then select Next.
+
+
+An Azure sign-in page appears. Use your Azure credentials to sign in.
+
+When you've signed in to your Azure instance, the associated Azure account and Azure subscription appear in the Account Management section.
+
+Confirm that the Concierge Subscription subscription is selected and account details are correct, and then select Apply.
+
+You've now connected Storage Explorer to your Azure subscription. Leave Storage Explorer open while you work through the next steps.
+
+Create a storage account and add a blob
+
+1. In Azure Cloud Shell, run the following command to create a storage account.
+
+Azure CLI
+
+az storage account create \
+--name  mslearn$RANDOM \
+--resource-group learn-732892a5-7d43-4005-a62c-e7858680f823 \
+--sku Standard_GRS \
+--kind StorageV2
+
+
+In the output, note the name of the storage account. After the storage account is created, switch back to Storage Explorer.
+
+2. If it isn't currently visible, toggle the EXPLORER view so that the pane is shown.
+
+3. In the EXPLORER pane, select Refresh All, then locate and expand Concierge Subscription.
+
+4. Locate and expand the storage account that you created earlier. It should be named something similar to mslearn12345 and ends
+with a different set of numbers. It has four virtual folders: Blob Containers, File Shares, Queues, and Tables.
+
+5. Right-click the Blob Containers virtual folder to access the shortcut menu, and then select Create Blob Container.
+
+6. Name the container myblobcontainer, and press Enter.
+
+Each created container appears in a tab to the right of the resource tree.
+
+7. Upload a blob to the container. In the myblobcontainer pane, select Upload, and then select Upload Files. The Upload Files dialog box appears.
+
+8. For Selected files, select the ellipsis (...). Browse to a small file on your device, and select Open. Then, select Upload to upload the file.
+
+You should now see your file stored in your storage account.
+
+From here, you can upload additional files, download files, make copies, and do other administrative tasks.
+
+
+
+Create a queue in your Azure storage account
+To create a queue in your storage account:
+
+In the resource tree, find Concierge Subscription, and expand the options.
+
+Select the cloudshell storage account.
+
+Right-click the Queues virtual folder to access the shortcut menu, and then select Create Queue.
+
+An empty and unnamed queue is created inside the Queues folder. The queue won't be created until you give it a name.
+
+Note
+
+Containers have specific rules that govern how they can be named. They must begin and end in either a letter or a number, must be all lowercase, and can have numbers and hyphens. The name can't contain a double hyphen.
+
+
+Name this new queue myqueue, and press Enter to create the queue. Each created queue appears on a tab to the right of the resource tree.
+
+From this view, you can manage the content of the queue. If our application used this queue and experienced an issue with processing a message, you could connect to the queue, and view the contents of a message to determine the issue.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
